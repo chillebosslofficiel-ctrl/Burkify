@@ -43,6 +43,14 @@ patch_app() {
     local app="$1" plist="$1/Info.plist"
     [ -f "$plist" ] || { echo "[alt-icons] no Info.plist in $app" >&2; return 1; }
 
+    for key in CFBundleDisplayName CFBundleName; do
+        if "$PB" -c "Print :$key" "$plist" >/dev/null 2>&1; then
+            "$PB" -c "Set :$key Burkify" "$plist"
+        else
+            "$PB" -c "Add :$key string Burkify" "$plist"
+        fi
+    done
+
     local names; names="$(icon_names)"
     [ -n "$names" ] || { echo "[alt-icons] nothing to register"; return 0; }
 

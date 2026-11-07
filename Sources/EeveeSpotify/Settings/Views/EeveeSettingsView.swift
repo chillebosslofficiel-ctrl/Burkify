@@ -70,7 +70,7 @@ struct EeveeSettingsView: View {
 
     var body: some View {
         List {
-            Section {
+            Section(header: Text("Burkify Settings")) {
                 SettingsHero()
             }
             .listRowBackground(Color.clear)
